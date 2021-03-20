@@ -62,8 +62,8 @@ As of today, AutoSplitr only supports [LiveSplit One](https://one.livesplit.org)
 
 * Start AutoSplitr : `python3 splitr.py`
 	* There are a few arguments that can be passed to AutoSplitr on startup :
-		** `--settings=/path/to/settings.cfg`, that allow you to use different settings files for different games (other monitor, different aspect ratio...) ; you can give the settings file the name you want, as long as it ends with `.cfg`.
-		** `--splits=/path/to/splitsfolder/` : you can specify a folder containing your splits ; this will override the `splitsPath` setting, and enable the use of a single settings.cfg file for multiple games.
+		* `--settings=/path/to/settings.cfg`, that allow you to use different settings files for different games (other monitor, different aspect ratio...) ; you can give the settings file the name you want, as long as it ends with `.cfg`.
+		* `--splits=/path/to/splitsfolder/` : you can specify a folder containing your splits ; this will override the `splitsPath` setting, and enable the use of a single settings.cfg file for multiple games.
 
 * Connect to the address told by the script using [LiveSplit One](https://one.livesplit.org) `Connect to Server` button ; it starts with "ws://" or "wss://" if you are using ssl for other devices to connect.
 
