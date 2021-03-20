@@ -26,35 +26,15 @@ class Capture:
 	
 	
 	#### Constructor ####
-	def __init__(self, captureType, 
-		path=None, gameWindow=None, captureFullscreen=True, 
+	def __init__(self, gameWindow=None, captureFullscreen=True, 
 		monitorIndex=0, ratioSsim=0.02, ratioTemplate=0.3):
 	
-		self.captureType = captureType
 		self.ratioSsim = ratioSsim
 		self.ratioTemplate = ratioTemplate
 		self.isTemplate = False
 		self.curFrame = 0
 		
-		if self.captureType == 'Game':
-			assert gameWindow != None, 'Argument "gameWindow" is required when using "Game" as source.'
-			self.initGameCapture(gameWindow, monitorIndex, captureFullscreen)
-			
-		elif self.captureType == 'Video':
-			assert path != None, 'Argument "path" is required when using "Video" as source.'
-			self.initVideoCapture(path)
-			
-		else:
-			print('Invalid source choice. Should be "Game" or "Video".')
-			exit()
-			
-			
-	
-	# Destructor
-	def __del__(self):
-		
-		if self.captureType == 'Video':
-			self.video.release()
+		self.initGameCapture(gameWindow, monitorIndex, captureFullscreen)
 	
 	
 	#### Find game window location and size ####
@@ -118,22 +98,8 @@ class Capture:
 				int(winGeometry.widthp * self.ratioTemplate), 
 				int(winGeometry.heightp * self.ratioTemplate)
 			)
-	
-	
-	
-	#### Loads video path into cv.VideoCapture ####
-	def initVideoCapture(self, path):
-	
-		self.video = cv.VideoCapture(path)
-		
-		self.width = self.video.get(cv.CAP_PROP_FRAME_WIDTH)
-		self.height = self.video.get(cv.CAP_PROP_FRAME_HEIGHT)
-		self.frames = int(self.video.get(cv.CAP_PROP_FRAME_COUNT))
-		self.reducedSizeSsim = (int(self.width * self.ratioSsim), int(self.height * self.ratioSsim))
-		self.reducedSizeTemplate = (int(self.width * self.ratioTemplate), int(self.height * self.ratioTemplate))
-			
-			
-	
+
+
 	#### Load image with current capture parameters ####
 	def loadImage(self, path, isTemplate):
 	
@@ -156,13 +122,8 @@ class Capture:
 	def getFrame(self):
 	
 		self.curFrame = self.curFrame + 1
-	
-		if self.captureType == 'Game':
-			self.frame = self.winCapture.grab(self.winGame)
+		self.frame = self.winCapture.grab(self.winGame)
 			
-		elif self.captureType == 'Video':
-			success, self.frame = self.video.read()
-		
 		# Try to be consistent with variables types and sizes upon calls to avoid dynamic allocations
 		self.arr = np.array(self.frame)
 		self.ars = cv.cvtColor(self.arr, cv.COLOR_BGR2GRAY);
@@ -179,19 +140,8 @@ class Capture:
 		
 	#### Should continue to capture next frame ? ####
 	def shouldContinue(self):
-		if self.captureType == 'Game':
-			return True
-			
-		elif self.captureType == 'Video':
-			return self.curFrame < self.getCount()
-		
 	
-	
-	#### Get source length ####
-	def getCount(self):
-		if self.captureType == 'Video':
-			return self.frames
-				
+		return True
 			
 	
 	#### Get pixel count ####

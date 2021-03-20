@@ -5,6 +5,9 @@
 #			IMPORTING LIBRARIES
 # ===========================================
 
+# Image processing libraries
+import cv2 as cv # opencv
+
 # Files import libraries
 import json # to load settings.cfg
 from glob import glob # find files
@@ -69,8 +72,6 @@ if settings['server']:
 # ===========================================
 
 capture = Capture(
-	captureType=settings['source'], 
-	path=settings['sourcePath'],
 	gameWindow=settings['gameWindow'],
 	captureFullscreen=settings['captureFullscreen'],
 	monitorIndex=settings['monitorIndex']
