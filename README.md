@@ -1,6 +1,6 @@
 # AutoSplitr
 
-**AutoSplitr** is an [OpenCV](https://opencv.org/) based Speedrun Splitter : its aim to recognize certain images while playing a game in order to 'split' to the next timer segment.
+**AutoSplitr** is an [OpenCV](https://opencv.org/) based Speedrun Splitter : it aims to recognize certain images while playing a game in order to 'split' to the next timer segment.
 
 Basically, you pick screenshots of where your splits take place (for example by using a video from an old run) and store them somewhere you like (I recommend a folder per category and/or game). Images inside a given folder will be sequentially compared to what's going on on the screen.
 
